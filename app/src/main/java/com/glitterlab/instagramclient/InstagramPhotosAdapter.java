@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -38,12 +39,22 @@ public class InstagramPhotosAdapter  extends ArrayAdapter<InstagramPhotos>{
         //lookup to populating data(image,caption)
         TextView tvcaption= (TextView)convertView.findViewById(R.id.tvCaption);
         ImageView ivphoto= (ImageView)convertView.findViewById(R.id.ivPhoto);
+        TextView tvUserName=(TextView)convertView.findViewById(R.id.tvUserName);
+        TextView tvLikes=(TextView)convertView.findViewById(R.id.tvLikes);
+        TextView tvcomments=(TextView)convertView.findViewById(R.id.tvComments);
+        RoundedImageView ivUserPhoto=(RoundedImageView)convertView.findViewById(R.id.ivProfilePhoto);
+
 
         //insert the model data into ech of the view item
-tvcaption.setText(photo.caption);
+        tvUserName.setText(photo.username);
+        tvcaption.setText(photo.caption);
+        tvLikes.setText("Likes: "+photo.likecount);
+        tvcomments.setText("Comments:"+photo.commentscount);
         ivphoto.setImageResource(0);
+        ivUserPhoto.setImageResource(0);
         //insert the imageview using piccaso
         Picasso.with(getContext()).load(photo.imageurl).into(ivphoto);
+        Picasso.with(getContext()).load(photo.userimageUrl).into(ivUserPhoto);
 
 
         return  convertView;

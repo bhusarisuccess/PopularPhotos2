@@ -1,14 +1,14 @@
 package com.glitterlab.instagramclient;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpRequest;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -24,6 +24,8 @@ public class PhotosActivity extends ActionBarActivity {
     public static final String CLIENT_ID = "e0599db985b749419474868d3ba9138d";
     private ArrayList<InstagramPhotos> photos;
     private  InstagramPhotosAdapter aphoto;
+    private SwipeRefreshLayout swipeContainer;
+    ListView lvPhoto;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
@@ -34,9 +36,28 @@ public class PhotosActivity extends ActionBarActivity {
 
 
         aphoto= new InstagramPhotosAdapter(this,photos);
-        ListView lvPhoto= (ListView)findViewById(R.id.lvPhotos);
+       lvPhoto= (ListView)findViewById(R.id.lvPhotos);
         lvPhoto.setAdapter(aphoto);
         feachPopularPhotos();
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                feachPopularPhotos();
+                lvPhoto.setAdapter(aphoto);
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
     }
 
 
@@ -81,12 +102,17 @@ public class PhotosActivity extends ActionBarActivity {
                         //decode the atributes into a data model
                         InstagramPhotos photo= new InstagramPhotos();
                         photo.username= photoJSON.getJSONObject("user").getString("username");
+
+                        photo.userimageUrl=photoJSON.getJSONObject("user").getString("profile_picture");
                         photo.caption= photoJSON.getJSONObject("caption").getString("text");
                         photo.imageurl= photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
                         photo.imagehight=photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("height");
                         photo.likecount= photoJSON.getJSONObject("likes").getString("count");
+                        photo.commentscount= photoJSON.getJSONObject("comments").getString("count");
                         //add the decoded object to the photos
                         photos.add(photo);
+                        swipeContainer.setRefreshing(false);
+
                     }
 
                 }catch (JSONException e){
