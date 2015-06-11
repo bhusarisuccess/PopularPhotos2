@@ -14,7 +14,7 @@ Which required and optional stories have you completed?
 
 - User can scroll through current popular photos from Instagram
 - For each photo displayed, user can see the following details:
-  Graphic, Caption, Username
+  Graphic, Caption, Username,Number of coment,rounded image of User profile pic,
 
 </p>
 
