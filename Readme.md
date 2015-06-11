@@ -24,7 +24,7 @@ Added
 </p>
 
 <p>
-Demo Link: <a href="https://github.com/bhusarisuccess/PopularPhotos2/blob/master/Demo/Demo.gif"> <br> <br>
-<img border="0" alt="W3Schools" src="https://github.com/bhusarisuccess/PopularPhotos2/blob/master/Demo/Demo.gif" width="100%" height="100%"> <br>
+Demo Link: <a href="https://github.com/bhusarisuccess/PopularPhotos2/blob/master/Demo/Demo1.gif"> <br> <br>
+<img border="0" alt="W3Schools" src="https://github.com/bhusarisuccess/PopularPhotos2/blob/master/Demo/Demo1.gif" width="100%" height="100%"> <br>
 </a>
 </p>
