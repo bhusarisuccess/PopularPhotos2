@@ -107,6 +107,7 @@ public class PhotosActivity extends ActionBarActivity {
                         photo.caption= photoJSON.getJSONObject("caption").getString("text");
                         photo.imageurl= photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
                         photo.imagehight=photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("height");
+                        photo.media_id=photoJSON.getString("id");
                         photo.likecount= photoJSON.getJSONObject("likes").getString("count");
                         photo.commentscount= photoJSON.getJSONObject("comments").getString("count");
                         //add the decoded object to the photos

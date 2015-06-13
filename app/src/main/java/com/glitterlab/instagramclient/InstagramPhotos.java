@@ -14,6 +14,7 @@ public class InstagramPhotos  {
     public String likecount;
     public String commentscount;
 
+    public String media_id;
 
-
+    public String commenttext;
 }
